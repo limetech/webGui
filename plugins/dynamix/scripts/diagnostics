@@ -210,10 +210,11 @@ foreach ($files as $file) {
     else
       $exists[] = $anon;
   }
+  $shareDisk .= $exists ? str_pad(pathinfo($dest,PATHINFO_FILENAME),34).str_pad(exec("cat ".escapeshellarg($file)." | grep shareUseCache"),22)."  Exists on ".implode(", ",$exists)."\r\n" : "";
   $exists = $exists ?: ["no drives"];
-  
   file_put_contents($dest,"# Share exists on ".implode(", ",$exists)."\r\n",FILE_APPEND);
 }
+file_put_contents("/$diag/shares/shareDisks.txt",$shareDisk);
 // create default user shares information
 $shares = (array)@parse_ini_file("$get/shares.ini", true);
 foreach ($shares as $share) {
