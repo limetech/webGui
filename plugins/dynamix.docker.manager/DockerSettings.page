@@ -239,8 +239,8 @@ _(Template Authoring Mode)_:
 :docker_authoring_mode_help:
 
 _(Host access to custom networks)_:
-: <select name="DOCKER_ALLOW_ACCESS" disabled>
-  <?=mk_option($dockercfg['DOCKER_ALLOW_ACCESS'], '', _('Disabled'),'selected')?>
+: <select name="DOCKER_ALLOW_ACCESS">
+  <?=mk_option($dockercfg['DOCKER_ALLOW_ACCESS'], '', _('Disabled'))?>
   <?=mk_option($dockercfg['DOCKER_ALLOW_ACCESS'], 'yes', _('Enabled'))?>
   </select>
 
@@ -437,7 +437,7 @@ _(Docker LOG rotation)_:
 :docker_log_rotation_active_help:
 
 _(Host access to custom networks)_:
-: <?=($dockercfg['DOCKER_ALLOW_ACCESS']||1) ? _('Disabled') : _('Enabled')?>
+: <?=$dockercfg['DOCKER_ALLOW_ACCESS']=='yes' ? _('Enabled') : _('Disabled')?>
 
 :docker_custom_network_active_help:
 

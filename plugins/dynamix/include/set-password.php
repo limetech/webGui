@@ -39,7 +39,6 @@ if (!empty($_POST['password']) && !empty($_POST['confirmPassword'])) {
     return $POST_ERROR = $VALIDATION_MESSAGES['saveError'];
 }
 
-extract(parse_plugin_cfg('dynamix',true));
 $THEME_DARK = in_array($display['theme'],['black','gray']);
 ?>
 <!DOCTYPE html>
@@ -340,19 +339,20 @@ $THEME_DARK = in_array($display['theme'],['black','gray']);
             <header>
                 <h1><?=$var['NAME']?></h1>
                 <h2><?=$var['COMMENT']?></h2>
-                <p><?= _('Please set a password for the root user account.  Maximum length is 128 characters.') ?></p>
+                <p><?=_('Please set a password for the root user account')?>.</p>
+                <p><?=_('Max password length is 128 characters')?>.</p>
             </header>
             <noscript>
-                <p class="error"><?= _('The Unraid OS webgui requires JavaScript').'. '._('Please enable it').'.' ?></p>
-                <p class="error"><?= _('Please also ensure you have cookies enabled').'.' ?></p>
+                <p class="error"><?=_('The Unraid OS webgui requires JavaScript')?>. <?=_('Please enable it')?>.</p>
+                <p class="error"><?=_('Please also ensure you have cookies enabled')?>.</p>
             </noscript>
             <form action="/login" method="POST" class="js-validate w-full flex flex-col">
                 <label for="password"><?= _('Username') ?></label>
-                <input name="username" type="text" value="root" disabled title="<?= _('Username not changeable') ?>">
+                <input name="username" type="text" value="root" disabled title="<?=_('Username not changeable')?>">
 
                 <div class="flex flex-row items-center justify-between">
-                    <label for="password" class="flex-auto"><?= _('Password') ?></label>
-                    <button type="button" tabIndex="-1" class="js-pass-toggle pass-toggle" title="<?= _('Show Password') ?>">
+                    <label for="password" class="flex-auto"><?=_('Password')?></label>
+                    <button type="button" tabIndex="-1" class="js-pass-toggle pass-toggle" title="<?=_('Show Password')?>">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
                             <path d="M24,9A23.654,23.654,0,0,0,2,24a23.633,23.633,0,0,0,44,0A23.643,23.643,0,0,0,24,9Zm0,25A10,10,0,1,1,34,24,10,10,0,0,1,24,34Zm0-16a6,6,0,1,0,6,6A6,6,0,0,0,24,18Z"/>
                             <g class="js-pass-toggle-hide">
@@ -364,11 +364,11 @@ $THEME_DARK = in_array($display['theme'],['black','gray']);
                 </div>
                 <input id="password" name="password" type="password" max="128" autocomplete="new-password" autofocus required>
 
-                <label for="confirmPassword"><?= _('Confirm Password') ?></label>
+                <label for="confirmPassword"><?=_('Confirm Password')?></label>
                 <input id="confirmPassword" name="confirmPassword" type="password" max="128" autocomplete="new-password" required>
-                <p class="js-error error"><?= @$POST_ERROR ?></p>
+                <p class="js-error error"><?=@$POST_ERROR?></p>
                 <div class="flex justify-end">
-                    <button disabled type="submit" class="js-submit button button--small"><?= _('Set Password') ?></button>
+                    <button disabled type="submit" class="js-submit button button--small"><?=_('Set Password')?></button>
                 </div>
             </form>
         </div>
@@ -378,7 +378,7 @@ $THEME_DARK = in_array($display['theme'],['black','gray']);
         document.cookie = "cookietest=1";
         cookieEnabled = document.cookie.indexOf("cookietest=")!=-1;
         document.cookie = "cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
-        if (!cookieEnabled) document.write('<p class="error">Browser cookie support required for Unraid OS webgui</p>');
+        if (!cookieEnabled) document.write("<p class='error'><?=_('Browser cookie support required for Unraid OS webgui')?></p>");
         // Password toggling
         const $passToggle = document.querySelector('.js-pass-toggle');
         const $passToggleHideSvg = $passToggle.querySelector('.js-pass-toggle-hide');
@@ -390,7 +390,7 @@ $THEME_DARK = in_array($display['theme'],['black','gray']);
             if (!hidePass) $passToggleHideSvg.classList.add('invisible'); // toggle svg elements
             else $passToggleHideSvg.classList.remove('invisible');
             $passInputs.forEach($el => $el.type = hidePass ? 'password' : 'text'); // change input types
-            $passToggle.setAttribute('title', hidePass ? "<?= _('Show Password') ?>" : "<?= _('Hide Password') ?>"); // change toggle title
+            $passToggle.setAttribute('title', hidePass ? "<?=_('Show Password')?>" : "<?=_('Hide Password')?>"); // change toggle title
         });
         // front-end validation
         const $submitBtn = document.querySelector('.js-submit');

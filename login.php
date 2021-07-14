@@ -1,6 +1,13 @@
 <?php
 $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
 require_once "$docroot/webGui/include/Helpers.php";
+
+// add translations
+extract(parse_plugin_cfg('dynamix',true));
+
+$login_locale = $display['locale'];
+require_once "$docroot/webGui/include/Translations.php";
+
 $var = parse_ini_file('state/var.ini');
 $error = '';
 
@@ -16,12 +23,12 @@ if ($_SERVER['REQUEST_URI'] == '/logout') {
         $params = session_get_cookie_params();
         setcookie(session_name(), '', 0, '/', $params['domain'], $params['secure'], isset($params['httponly']));
     }
-    $error = 'Successfully logged out';
+    $error = _('Successfully logged out');
 }
 
 $result = exec( "/usr/bin/passwd --status root");
 if (($result === false) || (substr($result, 0, 6) !== "root P"))
-  include("$docroot/webGui/include/set-password.php");
+  include "$docroot/webGui/include/set-password.php";
 else
-  include("$docroot/webGui/include/login.php");
+  include "$docroot/webGui/include/login.php";
 ?>

@@ -58,7 +58,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
     }
 
     if (count($fails) >= $maxfails) {
-        $error = 'Too many invalid login attempts';
+        $error = _('Too many invalid login attempts');
         if (count($fails) == $maxfails)
            exec("logger -t webGUI ".escapeshellarg("Ignoring login attempts for {$_POST['username']} from {$remote_addr}"));
 
@@ -85,7 +85,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
         }
 
         // Invalid login
-        $error = 'Invalid Username or Password';
+        $error = _('Invalid Username or Password');
         exec("logger -t webGUI ".escapeshellarg("Unsuccessful login user {$_POST['username']} from {$remote_addr}"));
 
     }
@@ -388,25 +388,25 @@ $theme_dark = in_array($display['theme'],['black','gray']);
 
                 <form action="/login" method="POST">
                     <p>
-                        <input name="username" type="text" placeholder="<?= 'Username' ?>" autocapitalize="none" autocomplete="off" autofocus required>
-                        <input name="password" type="password" placeholder="<?= 'Password' ?>" required>
+                        <input name="username" type="text" placeholder="<?=_('Username')?>" autocapitalize="none" autocomplete="off" autofocus required>
+                        <input name="password" type="password" placeholder="<?=_('Password')?>" required>
                     </p>
-                    <? if ($error) echo '<p class="error">'.$error.'</p>'; ?>
+                    <?if ($error) echo "<p class='error'>$error</p>";?>
                     <script type="text/javascript">
                         document.cookie = "cookietest=1";
                         cookieEnabled = document.cookie.indexOf("cookietest=")!=-1;
                         document.cookie = "cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
                         if (!cookieEnabled) {
-                            document.write('<p class="error">Browser cookie support required for login</p>');
+                            document.write("<p class='error'><?=_('Browser cookie support required for Unraid OS webgui')?></p>");
                         }
                     </script>
                     <p>
-                        <button type="submit" class="button button--small"><?= 'Login' ?></button>
+                        <button type="submit" class="button button--small"><?=_('Login')?></button>
                     </p>
                 </form>
             </div>
 
-            <p><a href="https://wiki.unraid.net/Manual/Troubleshooting#Lost_root_Password" target="_blank"><?= 'Password recovery' ?></a></p>
+            <p><a href="https://wiki.unraid.net/Manual/Troubleshooting#Lost_root_Password" target="_blank"><?=_('Password recovery')?></a></p>
         </div>
     </section>
 </body>

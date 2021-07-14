@@ -11,7 +11,7 @@
  */
 ?>
 <?
-if (session_status()==PHP_SESSION_NONE) {
+if (session_status()==PHP_SESSION_NONE && !isset($login_locale)) {
   session_start();
   session_write_close();
 }
@@ -112,7 +112,7 @@ function translate($key) {
 
 // main
 $language = [];
-$locale   = $_SESSION['locale'];
+$locale   = $_SESSION['locale'] ?? $login_locale;
 $return   = "function _(t){return t;}";
 $jscript  = "$docroot/webGui/javascript/translate.en_US.js";
 $root     = "$docroot/languages/en_US/helptext.txt";

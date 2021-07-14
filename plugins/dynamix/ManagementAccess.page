@@ -172,7 +172,7 @@ $(function(){
 <input type="hidden" name="server_name" value="<?=$_SERVER['SERVER_NAME']?>">
 <input type="hidden" name="server_addr" value="<?=$_SERVER['SERVER_ADDR']?>">
 _(User 'root')_:
-: [_(Manage)_](/Users/UserEdit?name=root)
+: [_(Manage)_](/Settings/Users/ManagementAccess/UserEdit?name=root)
 
 _(Start page)_:
 : <select name="START_PAGE">

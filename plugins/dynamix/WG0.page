@@ -19,17 +19,17 @@ Nchan="wg_poller"
 $etc = '/etc/wireguard';
 $tmp = '/tmp/list.tmp';
 
-unset($subnets,$hosts,$subnets6,$hosts6,$vtuns,$ipvlan,$docker);
+unset($subnets,$hosts,$subnets6,$hosts6,$vtuns,$filter,$docker);
 exec("ip -4 route show scope link|awk '/^[^d].+ dev (eth|br|bond)[0-9]+/{print \$1}'",$subnets);
 exec("ip -4 addr show scope global|awk '/inet .+ (eth|br|bond)[0-9]+/{split(\$2,ip,\"/\");print ip[1]}'",$hosts);
 exec("ip -6 route show type unicast|grep -Pv 'expires|shim-'|awk '/^[^dfm:]/{print \$1}'",$subnets6);
 exec("ip -6 addr show scope global|grep -PA2 ': (eth|br|bond)\d+'|awk '/inet6 .+ (global|noprefixroute) \$/{split(\$2,ip,\"/\");print ip[1]}'",$hosts6);
 exec("ls  --indicator-style=none $etc/wg*.conf*|grep -Po wg[0-9]+",$vtuns);
-exec("docker network ls --filter driver='ipvlan' --format='{{.Name}}' 2>/dev/null",$ipvlan);
+exec("docker network ls --filter driver='macvlan' --filter driver='ipvlan' --format='{{.Name}}' 2>/dev/null",$filter);
 
 // add subnets defined in Docker custom networks
-if (count($ipvlan)) {
-  exec("docker network inspect --format='{{range .IPAM.Config}}{{println .Subnet}}{{end}}' ".implode(' ',$ipvlan),$docker);
+if (count($filter)) {
+  exec("docker network inspect --format='{{range .IPAM.Config}}{{println .Subnet}}{{end}}' ".implode(' ',$filter),$docker);
   foreach (array_filter($docker) as $network) {
     if (strpos($network,'.')!==false && !in_array($network,$subnets)) $subnets[] = $network;
     elseif (strpos($network,':')!==false && !in_array($network,$subnets6)) $subnets6[] = $network;

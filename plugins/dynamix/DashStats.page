@@ -316,8 +316,8 @@ foreach ($cpus as $pair) {
 <?=mk_option("", "2", _("Errors info"))?>
 <?=mk_option("", "3", _("Network traffic"))?>
 </select></td>
-<td><i class='view1'>_(Mode of operation)_</i><i class='view2'>_(Received packets)_</i><i class='view3'>_(Receive counters)_</i><i class='fa fa-fw fa-arrow-down red-text'></i>&nbsp;<i class='view4 red-text'>_(Inbound)_</i></td>
-<td><i class='view1'></i><i class='view2'>_(Transmitted packets)_</i><i class='view3'>_(Transmit counters)_</i><i class='fa fa-fw fa-arrow-up orange-text'></i>&nbsp;<i class='view4 orange-text'>_(Outbound)_</i>
+<td><i class='view1'>_(Mode of operation)_</i><i class='view2'>_(Received packets)_</i><i class='view3'>_(Receive counters)_</i><i class='fa fa-fw fa-arrow-down view4 red-text'></i>&nbsp;<i class='view4 red-text'>_(Inbound)_</i></td>
+<td><i class='view1'></i><i class='view2'>_(Transmitted packets)_</i><i class='view3'>_(Transmit counters)_</i><i class='fa fa-fw fa-arrow-up view4 orange-text'></i>&nbsp;<i class='view4 orange-text'>_(Outbound)_</i>
 <span class='view4' style='float:right;margin-right:24px'><select id='netline' class='auto' title="_(Select time frame)_" onchange='changeNetline(this.value)'>
 <?=mk_option("","10", _("10 s"));?>
 <?=mk_option("","30", _("30 s"));?>
